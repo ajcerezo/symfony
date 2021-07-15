@@ -140,20 +140,10 @@ class CouchbaseCollectionAdapter extends AbstractAdapter
         return $results;
     }
 
-    private static function isThreeVersion(): bool
-    {
-        return \extension_loaded('couchbase') && version_compare(phpversion('couchbase'), '3.0.0', '>=') && version_compare(phpversion('couchbase'), '4.0', '<');
-    }
-
-    private static function isTwoDotSixVersion(): bool
-    {
-        return \extension_loaded('couchbase') && version_compare(phpversion('couchbase'), '2.6.0', '>=') && version_compare(phpversion('couchbase'), '3.0', '<');
-    }
-
     /**
      * {@inheritdoc}
      */
-    protected function doFetch(array $ids)
+    protected function doFetch(array $ids): array
     {
         $results = [];
         foreach ($ids as $id) {
@@ -203,7 +193,6 @@ class CouchbaseCollectionAdapter extends AbstractAdapter
             } catch (DocumentNotFoundException $exception) {
             }
         }
-//        }
 
         return 0 === \count($idsErrors);
     }
